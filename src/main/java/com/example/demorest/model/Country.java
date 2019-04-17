@@ -28,6 +28,19 @@ public class Country {
 	
 	@Column(nullable = true)
 	private int area;
+	
+	//-------------------
+	
+	public Country() {
+		
+	}
+
+	public Country(String name, String code, int area) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.area = area;
+	}
 
 	public Long getId() {
 		return id;
