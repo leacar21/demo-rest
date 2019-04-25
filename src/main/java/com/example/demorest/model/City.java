@@ -11,17 +11,17 @@ import lombok.Data;
 @Data
 @Entity
 public class City {
-	
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private String code;
-	
-	@Column(nullable = true)
-	private int population;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String code;
+
+    @Column(nullable = true)
+    private int population;
 }
