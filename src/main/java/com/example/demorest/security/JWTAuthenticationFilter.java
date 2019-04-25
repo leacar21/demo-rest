@@ -2,7 +2,6 @@ package com.example.demorest.security;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static com.example.demorest.security.SecurityConstants.EXPIRATION_TIME;
-import static com.example.demorest.security.SecurityConstants.HEADER_STRING;
 import static com.example.demorest.security.SecurityConstants.SECRET;
 import static com.example.demorest.security.SecurityConstants.TOKEN_PREFIX;
 
@@ -52,6 +51,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = JWT.create().withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME)).sign(HMAC512(SECRET.getBytes()));
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+
+        String json = "{\"Token\": \"" + TOKEN_PREFIX + token + "\"}";
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(json);
     }
 }
