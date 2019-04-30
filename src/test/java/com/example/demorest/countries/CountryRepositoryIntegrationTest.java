@@ -17,25 +17,28 @@ import com.example.demorest.repository.CountryRepository;
 @DataJpaTest
 public class CountryRepositoryIntegrationTest {
 
-	@Autowired
-    private TestEntityManager entityManager;
- 
     @Autowired
-    private CountryRepository  countryRepository;
-    
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private CountryRepository countryRepository;
+
     @Test
     public void whenFindByName_thenReturnEmployee() {
         // given
+
+        int aaa = 3;
+
         Country countryUY = new Country("Uruguay", "UY", 25000);
-        entityManager.persist(countryUY);
-        entityManager.flush();
-     
+        this.entityManager.persist(countryUY);
+        this.entityManager.flush();
+
         // when
-        List<Country> listString = countryRepository.findByCode(countryUY.getCode());
+        List<Country> listString = this.countryRepository.findByCode(countryUY.getCode());
         Country result = listString.stream().findFirst().orElse(null);
-     
+
         // then
         Assert.assertTrue(countryUY.getName().equals(result.getName()));
     }
-	
+
 }
