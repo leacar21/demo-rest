@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class ApplicationUser {
@@ -15,13 +15,24 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name cannot be null")
     private String username;
-    @NotNull(message = "Password cannot be null")
+    @NotBlank(message = "Password cannot be null")
     private String password;
     @Min(value = 1, message = "Age should be greater than 0")
     @Max(value = 149, message = "Age should be less than 150")
     private int age;
+
+    public ApplicationUser() {
+
+    }
+
+    public ApplicationUser(String username, String password, int age) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.age = age;
+    }
 
     public long getId() {
         return this.id;
