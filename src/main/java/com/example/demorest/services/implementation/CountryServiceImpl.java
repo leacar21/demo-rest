@@ -25,19 +25,19 @@ public class CountryServiceImpl implements CountryService {
     public void createCountry(Country country) {
         LOGGER.info("Saving country: " + country.getCode());
 
-        if (!countryRepository.findByCode(country.getCode()).isEmpty()) {
+        if (!this.countryRepository.findByCode(country.getCode()).isEmpty()) {
             LOGGER.info("Saving country: " + "There is already a country with the same Code on the database");
             throw new ForbiddenException("There is already a country with the same Code on the database");
         }
 
-        countryRepository.save(country);
+        this.countryRepository.save(country);
         LOGGER.info("Saved country: " + country.getCode());
     }
 
     @Override
     public Country getCountry(String code) {
         LOGGER.info("getCountry country: " + code);
-        List<Country> listCountry = countryRepository.findByCode(code);
+        List<Country> listCountry = this.countryRepository.findByCode(code);
         Optional<Country> optionalCountry = listCountry.stream().findFirst();
         return optionalCountry.orElse(null);
     }
@@ -45,7 +45,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<Country> getCountries() {
         LOGGER.info("getCountries");
-        return countryRepository.findAll();
+        return this.countryRepository.findAll();
     }
 
 }
