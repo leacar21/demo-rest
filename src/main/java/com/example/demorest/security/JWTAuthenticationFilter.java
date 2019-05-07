@@ -37,7 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            ApplicationUser creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
+            var creds = new ObjectMapper().readValue(req.getInputStream(), ApplicationUser.class);
 
             return this.authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), new ArrayList<>()));
@@ -50,10 +50,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth)
             throws IOException, ServletException {
 
-        String token = JWT.create().withSubject(((User) auth.getPrincipal()).getUsername())
+        var token = JWT.create().withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME)).sign(HMAC512(SECRET.getBytes()));
 
-        String json = "{\"Token\": \"" + TOKEN_PREFIX + token + "\"}";
+        var json = "{\"Token\": \"" + TOKEN_PREFIX + token + "\"}";
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(json);

@@ -3,13 +3,10 @@ package com.example.demorest.services.implementation;
 import static java.util.Collections.emptyList;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,10 +37,10 @@ public class UserServiceImpl implements UserService {
 
         LOGGER.info("Saving user: " + user.getUsername());
 
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
+        var factory = Validation.buildDefaultValidatorFactory();
+        var validator = factory.getValidator();
 
-        Set<ConstraintViolation<ApplicationUser>> violations = validator.validate(user);
+        var violations = validator.validate(user);
 
         if (violations.stream().count() > 0) {
             for (ConstraintViolation<ApplicationUser> violation : violations) {
@@ -66,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ApplicationUser applicationUser = this.applicationUserRepository.findByUsername(username);
+        var applicationUser = this.applicationUserRepository.findByUsername(username);
         if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
         }

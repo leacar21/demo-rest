@@ -1,7 +1,5 @@
 package com.example.demorest.users;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.TestContextManager;
 
@@ -52,7 +49,7 @@ public class UserServiceIntegrationTest {
     @Test
     public void createUser_success() {
         // given
-        ApplicationUser u1 = new ApplicationUser("user1", "user1", 40);
+        var u1 = new ApplicationUser("user1", "user1", 40);
 
         this.userService.saveUser(u1);
         Assert.assertTrue(true);
@@ -60,7 +57,7 @@ public class UserServiceIntegrationTest {
 
     @Test(expected = ForbiddenException.class)
     public void createUser_duplicate() {
-        ApplicationUser u2 = new ApplicationUser("user2", "user2", 40);
+        var u2 = new ApplicationUser("user2", "user2", 40);
 
         this.userService.saveUser(u2);
         this.userService.saveUser(u2);
@@ -69,7 +66,7 @@ public class UserServiceIntegrationTest {
     @Test(expected = ForbiddenException.class)
     @Parameters({ " , test, 20", "test, , 20", "test, test, -10" })
     public void createUser_invalid(String name, String password, int age) {
-        ApplicationUser u2 = new ApplicationUser(name, password, age);
+        var u2 = new ApplicationUser(name, password, age);
 
         this.userService.saveUser(u2);
     }
@@ -77,11 +74,11 @@ public class UserServiceIntegrationTest {
     @Test
     public void getUsers_success() {
 
-        ApplicationUser u3 = new ApplicationUser("user3", "user3", 40);
+        var u3 = new ApplicationUser("user3", "user3", 40);
 
         this.userService.saveUser(u3);
 
-        List<ApplicationUser> users = this.userService.getAll();
+        var users = this.userService.getAll();
 
         Assert.assertTrue(users.size() > 0);
     }
@@ -89,11 +86,11 @@ public class UserServiceIntegrationTest {
     @Test
     public void getUserDetails_success() {
 
-        ApplicationUser u4 = new ApplicationUser("user4", "user4", 40);
+        var u4 = new ApplicationUser("user4", "user4", 40);
 
         this.userService.saveUser(u4);
 
-        UserDetails user = this.userService.loadUserByUsername("user4");
+        var user = this.userService.loadUserByUsername("user4");
 
         Assert.assertTrue(user != null);
         Assert.assertEquals(user.getUsername(), u4.getUsername());

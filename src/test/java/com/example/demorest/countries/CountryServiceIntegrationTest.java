@@ -1,7 +1,5 @@
 package com.example.demorest.countries;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +33,7 @@ public class CountryServiceIntegrationTest {
     @Test
     public void createCountry_success() {
         // given
-        Country c1 = new Country("Country1", "C1", 25000);
+        var c1 = new Country("Country1", "C1", 25000);
 
         this.countryService.createCountry(c1);
         Assert.assertTrue(true);
@@ -44,7 +42,7 @@ public class CountryServiceIntegrationTest {
     @Test(expected = ForbiddenException.class)
     public void createCountry_duplicate() {
         // given
-        Country c2 = new Country("Country2", "C2", 25000);
+        var c2 = new Country("Country2", "C2", 25000);
 
         this.countryService.createCountry(c2);
         this.countryService.createCountry(c2);
@@ -53,12 +51,12 @@ public class CountryServiceIntegrationTest {
     @Test
     public void getCountry_success() {
         // given
-        Country c3 = new Country("Country3", "C3", 25000);
+        var c3 = new Country("Country3", "C3", 25000);
 
         this.countryService.createCountry(c3);
 
         // when
-        Country country = this.countryService.getCountry(c3.getCode());
+        var country = this.countryService.getCountry(c3.getCode());
 
         // then
         Assert.assertNotNull(country);
@@ -68,12 +66,12 @@ public class CountryServiceIntegrationTest {
     @Test
     public void getCountries_success() {
         // given
-        Country c4 = new Country("Country4", "C4", 25000);
+        var c4 = new Country("Country4", "C4", 25000);
 
         this.countryService.createCountry(c4);
 
         // when
-        List<Country> countries = this.countryService.getCountries();
+        var countries = this.countryService.getCountries();
 
         // then
         Assert.assertTrue(countries.size() > 0);

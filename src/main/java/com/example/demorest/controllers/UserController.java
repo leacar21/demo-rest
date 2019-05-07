@@ -8,7 +8,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,13 +43,14 @@ public class UserController {
     public List<ApplicationUser> getAllRestCall(
             @ApiParam(value = "Authorization", required = false, hidden = true) @RequestHeader("Authorization") String token) {
 
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<ApplicationUser>> response = restTemplate.exchange("http://localhost:8080/users/", HttpMethod.GET, entity,
+        var entity = new HttpEntity<>(null, headers);
+
+        var restTemplate = new RestTemplate();
+        var response = restTemplate.exchange("http://localhost:8080/users/", HttpMethod.GET, entity,
                 new ParameterizedTypeReference<List<ApplicationUser>>() {
                 });
 

@@ -1,7 +1,6 @@
 package com.example.demorest.services.implementation;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +36,8 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country getCountry(String code) {
         LOGGER.info("getCountry country: " + code);
-        List<Country> listCountry = this.countryRepository.findByCode(code);
-        Optional<Country> optionalCountry = listCountry.stream().findFirst();
+        var listCountry = this.countryRepository.findByCode(code);
+        var optionalCountry = listCountry.stream().findFirst();
         return optionalCountry.orElse(null);
     }
 
